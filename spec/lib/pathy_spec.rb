@@ -64,6 +64,10 @@ describe Pathy do
         @obj.has_json_path?('hash.one.foo').should be_false
       end
 
+      it "should work as rspec matcher" do
+        @obj.should have_json_path "hash.one"
+      end
+
     end
 
 
