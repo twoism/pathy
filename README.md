@@ -8,11 +8,15 @@
 
 ### Usage ###
 
+    require 'spec_helper'
+
     describe Pathy do
       before :all do
-
-        Object.pathy!
-
+        
+        # add the helper methods to any object.
+        # this can be called on any class.
+        Object.pathy! 
+    
         @json = %[ 
           {
             "string"  : "barr",
@@ -72,6 +76,10 @@
             @obj.has_json_path?('hash.one.foo').should be_false
           end
 
+          it "should work as rspec matcher" do
+            @obj.should have_json_path "hash.one"
+          end
+
         end
 
 
@@ -110,7 +118,8 @@
       end
 
     end
-    
+
+        
 
 ##Note on Patches/Pull Requests
  
