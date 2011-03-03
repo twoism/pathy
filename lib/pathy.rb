@@ -20,7 +20,6 @@ module Pathy
     def has_json_path? path
       begin
         value = self.at_json_path(path)
-        return true if value == false
         return true
       rescue InvalidPathError
         false
