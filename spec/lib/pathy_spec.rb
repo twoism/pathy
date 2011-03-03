@@ -1,9 +1,33 @@
 require 'spec_helper'
 
 describe Pathy do
-  before :all do
 
-    Object.pathy!
+  describe "pathy scope" do
+
+    describe "Object.new" do
+      it "should not respond to :has_json_path?" do
+        Object.new.should_not respond_to(:has_json_path?)
+      end
+    end
+
+    describe "SampleClass" do
+      before :all do
+        SampleClass.pathy!
+      end
+
+      it "should not respond to :has_json_path?" do
+        Object.new.should_not respond_to(:has_json_path?)
+      end
+
+      it "should respond to :has_json_path?" do
+        SampleClass.new.should respond_to(:has_json_path?)
+      end
+
+    end
+
+  end
+
+  before :all do
     
     @json = %[ 
       {
@@ -29,6 +53,8 @@ describe Pathy do
 
   describe "for hashes" do
     before :all do
+      Object.pathy!
+
       @obj    = JSON.parse(@json)
       @array  = JSON.parse(@json_array)
     end
