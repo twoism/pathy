@@ -35,7 +35,8 @@ describe Pathy do
         "number"  : 1,
         "array"   : [1,2,3],
         "hash"    : {"one":{"two" : 2}},
-        "bool"    : false
+        "bool"    : false,
+        "nullval" : null
         }
     ]
 
@@ -89,6 +90,10 @@ describe Pathy do
 
       it "should have 'bool'" do
         @obj.should have_json_path 'bool'
+      end
+      
+      it "should have 'nullval'" do
+        @obj.should have_json_path 'nullval'
       end
 
       it "should be false for invalid paths" do

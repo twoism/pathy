@@ -12,16 +12,16 @@ module Pathy
     # returns 'awesome'
     def at_json_path path
       method_chain = path.split('.')
-      method_chain.inject(self.reparsed_as_json) do |obj,m| 
-        key         = (obj.respond_to?(:push) ? m.to_i : m)
-        new_value   = obj.send('[]', key) 
+      method_chain.inject(self.reparsed_as_json) do |obj,method| 
 
-        raise InvalidPathError, "Could not resolve #{path} at #{key}" if obj[key].nil?
+        is_array_like     = obj.respond_to?(:push)
+        key_or_index      = is_array_like ? method.to_i : method
+        has_key_or_index  = is_array_like ? !obj.slice(key_or_index).nil? : obj.keys.include?(key_or_index)
 
-        new_value
-       end
-    rescue 
-      raise InvalidPathError, "Could not resolve #{path}"
+        raise InvalidPathError, "Could not resolve #{path} at #{key_or_index}" unless has_key_or_index
+
+        obj.send('[]', key_or_index) 
+      end
     end
 
     # returns true if the path is found. Provides usage in Rspec
@@ -29,7 +29,7 @@ module Pathy
     # {:some_key => {:nested_key => 'awesome'}}.should have_json_path('some_key.nested_key')
     def has_json_path? path
       begin
-        self.at_json_path(path)
+        at_json_path(path)
         true
       rescue InvalidPathError
         false
