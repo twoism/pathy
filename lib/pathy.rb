@@ -7,15 +7,24 @@ module Pathy
     def at_json_path path
       method_chain = path.split('.')
       method_chain.inject(self.reparsed_as_json) do |obj,m| 
-        key = (obj.respond_to?(:push) ? m.to_i : m)
-        obj.send('[]', key) rescue raise InvalidPathError, "Could not resolve #{path} at #{key}"
-      end
+        key         = (obj.respond_to?(:push) ? m.to_i : m)
+        new_object  = obj.send('[]', key) 
+
+        raise InvalidPathError, "Could not resolve #{path} at #{key}" if obj[key].nil?
+        new_object
+       end
+    rescue 
+      raise InvalidPathError, "Could not resolve #{path}"
     end
 
     def has_json_path? path
-      !!self.at_json_path(path)
-    rescue InvalidPathError
-      false
+      begin
+        value = self.at_json_path(path)
+        return true if value == false
+        return true
+      rescue InvalidPathError
+        false
+      end
     end
 
     def reparsed_as_json

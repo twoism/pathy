@@ -10,7 +10,8 @@ describe Pathy do
         "string"  : "barr",
         "number"  : 1,
         "array"   : [1,2,3],
-        "hash"    : {"one":{"two" : 2}}
+        "hash"    : {"one":{"two" : 2}},
+        "bool"    : false
         }
     ]
 
@@ -43,7 +44,6 @@ describe Pathy do
     it "should parse 'hash.one' as {'two' => 2}" do
       @json.at_json_path('hash.one').should == {'two' => 2}
     end
-
     it "should parse 'hash.one' as {'two': 2}" do
       @obj.at_json_path('hash.one.two').should == 2
     end
@@ -60,8 +60,13 @@ describe Pathy do
       it "should be true for valid paths" do
         @obj.has_json_path?('hash.one.two').should be_true
       end
+
+      it "should have 'bool'" do
+        @obj.should have_json_path 'bool'
+      end
+
       it "should be false for invalid paths" do
-        @obj.has_json_path?('hash.one.foo').should be_false
+        @obj.has_json_path?('hash.one.does_not_exist').should be_false
       end
 
       it "should work as rspec matcher" do
