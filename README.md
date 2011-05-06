@@ -14,7 +14,9 @@
 
   Activate pathy for all objects
 
-    Object.pathy!
+```ruby
+Object.pathy!
+```
 
   This adds the conveinece methods to any object
 
