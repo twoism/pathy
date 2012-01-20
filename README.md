@@ -18,7 +18,7 @@
 Object.pathy!
 ```
 
-  This adds the conveinece methods to any object
+  This adds the convenience methods to any object
 
 ```ruby
 @obj = %[ 
@@ -34,7 +34,7 @@ puts @obj.at_json_path("number")
 => 1
 puts @obj.at_json_path('array')
 => [1,2,3]
-@json.at_json_path('hash.one')
+@obj.at_json_path('hash.one')
 => {'two' => 2}
 ```
 
