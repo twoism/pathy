@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Christopher Burnett"]
   s.email       = ["signalstatic@gmail.com"]
-  s.homepage    = "http://rubygems.org/gems/pathy"
+  s.homepage    = "https://github.com/twoism/pathy"
   s.summary     = %q{JSON Validation Helper}
   s.description = %q{Simple JSON Validation and rspec matchers}
 
