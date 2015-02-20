@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://rubygems.org/gems/pathy"
   s.summary     = %q{JSON Validation Helper}
   s.description = %q{Simple JSON Validation and rspec matchers}
+  s.license     = 'MIT'
 
   s.rubyforge_project = "pathy"
   
